@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>关于字符编码，你所需要知道的（ASCII,Unicode,Utf-8,GB2312…） | Wayne の小站</title><meta name="author" content="Wayneoi"><meta name="copyright" content="Wayneoi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="字符编码的问题看似很小，经常被技术人员忽视，但是很容易导致一些莫名其妙的问题。这里总结了一下字符编码的一些普及性的知识，希望对大家有所帮助。 还是得从ASCII码说起说到字符编码，不得不说ASCII码的简史。计算机一开始发明的时候是用来解决数字计算的问题，后来人们发现，计算机还可以做更多的事，例如文本处理。但由于计算机只识“数”，因此人们必须告诉计算机哪个数字来代表哪个特定字符，例如65代表字母‘">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于字符编码，你所需要知道的（ASCII,Unicode,Utf-8,GB2312…）">
+<meta property="og:url" content="https://wayneoi.github.io/2023/10/09/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%EF%BC%88ASCII-Unicode-Utf-8-GB2312%E2%80%A6%EF%BC%89/index.html">
+<meta property="og:site_name" content="Wayne の小站">
+<meta property="og:description" content="字符编码的问题看似很小，经常被技术人员忽视，但是很容易导致一些莫名其妙的问题。这里总结了一下字符编码的一些普及性的知识，希望对大家有所帮助。 还是得从ASCII码说起说到字符编码，不得不说ASCII码的简史。计算机一开始发明的时候是用来解决数字计算的问题，后来人们发现，计算机还可以做更多的事，例如文本处理。但由于计算机只识“数”，因此人们必须告诉计算机哪个数字来代表哪个特定字符，例如65代表字母‘">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-10-09T09:08:06.000Z">
+<meta property="article:modified_time" content="2023-10-09T09:33:49.129Z">
+<meta property="article:author" content="Wayneoi">
+<meta property="article:tag" content="ASCII">
+<meta property="article:tag" content="Unicode">
+<meta property="article:tag" content="UTF-8">
+<meta property="article:tag" content="GB2312">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wayneoi.github.io/2023/10/09/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%EF%BC%88ASCII-Unicode-Utf-8-GB2312%E2%80%A6%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Wayneoi","link":"链接: ","source":"来源: Wayne の小站","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '关于字符编码，你所需要知道的（ASCII,Unicode,Utf-8,GB2312…）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-09 17:33:49'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+document.addEventListener('pjax:send', () => {
+  Pace.restart()
+})
+</script><link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/xlenco/JS-X@main/pace.js/pace.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Wayne の小站"><span class="site-name">Wayne の小站</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">关于字符编码，你所需要知道的（ASCII,Unicode,Utf-8,GB2312…）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-09T09:08:06.000Z" title="发表于 2023-10-09 17:08:06">2023-10-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-09T09:33:49.129Z" title="更新于 2023-10-09 17:33:49">2023-10-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTML/">HTML</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>26分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="关于字符编码，你所需要知道的（ASCII,Unicode,Utf-8,GB2312…）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>字符编码的问题看似很小，经常被技术人员忽视，但是很容易导致一些莫名其妙的问题。这里总结了一下字符编码的一些普及性的知识，希望对大家有所帮助。</p>
+<h2 id="还是得从ASCII码说起"><a href="#还是得从ASCII码说起" class="headerlink" title="还是得从ASCII码说起"></a>还是得从ASCII码说起</h2><p>说到字符编码，不得不说ASCII码的简史。计算机一开始发明的时候是用来解决数字计算的问题，后来人们发现，计算机还可以做更多的事，例如文本处理。但由于计算机只识“数”，因此人们必须告诉计算机哪个数字来代表哪个特定字符，例如65代表字母‘A’，66代表字母‘B’，以此类推。但是<strong>计算机之间字符-数字的对应关系必须得一致，否则就会造成同一段数字在不同计算机上显示出来的字符不一样</strong>。因此美国国家标准协会ANSI制定了一个标准，规定了常用字符的集合以及每个字符对应的编号，这就是ASCII字符集（Character Set），也称ASCII码。</p>
+<p>当时的计算机普遍使用8比特字节作为最小的存储和处理单元，加之当时用到的字符也很少，26个大小写英文字母还有数字再加上其他常用符号，也不到100个，因此使用7个比特位就可以高效的存储和处理ASCII码，剩下最高位1比特被用作一些通讯系统的奇偶校验。</p>
+<blockquote>
+<p>注意，字节代表系统能够处理的最小单位，不一定是8比特。只是现代计算机的事实标准就是用8比特来代表一个字节。在很多技术规格文献中，为了避免产生歧义，更倾向于使用8位组（Octet）而不是字节（Byte）这个术语来强调8个比特的二进制流。下文中为了便于理解，我会延用大家熟悉的“字节”这个概念。</p>
+</blockquote>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/ascii.png" alt="ASCII table"></p>
+<p>ASCII字符集由95个可打印字符（0x20-0x7E）和33个控制字符（0x00-0x19，0x7F）组成。可打印字符用于显示在输出设备上，例如荧屏或者打印纸上，控制字符用于向计算机发出一些特殊指令，例如0x07会让计算机发出哔的一声，0x00通常用于指示字符串的结束，0x0D和0x0A用于指示打印机的打印针头退到行首（回车）并移到下一行（换行）。</p>
+<p>那时候的字符编解码系统非常简单，就是简单的查表过程。例如将字符序列编码为二进制流写入存储设备，只需要在ASCII字符集中依次找到字符对应的字节，然后直接将该字节写入存储设备即可。解码二进制流的过程也是类似。</p>
+<h2 id="OEM字符集的衍生"><a href="#OEM字符集的衍生" class="headerlink" title="OEM字符集的衍生"></a>OEM字符集的衍生</h2><p>当计算机开始发展起来的时候，人们逐渐发现，ASCII字符集里那可怜的128个字符已经不能再满足他们的需求了。人们就在想，一个字节能够表示的数字（编号）有256个，而ASCII字符只用到了0x00~0x7F，也就是占用了前128个，后面128个数字不用白不用，因此很多人打起了后面这128个数字的主意。可是问题在于，很多人同时有这样的想法，但是大家对于0x80-0xFF这后面的128个数字分别对应什么样的字符，却有各自的想法。这就导致了当时销往世界各地的机器上出现了大量各式各样的OEM字符集。</p>
+<p>下面这张表是IBM-PC机推出的其中一个OEM字符集，字符集的前128个字符和ASCII字符集的基本一致（为什么说基本一致呢，是因为前32个控制字符在某些情况下会被IBM-PC机当作可打印字符解释），后面128个字符空间加入了一些欧洲国家用到的重音字符，以及一些用于画线条画的字符。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/oem.png" alt="IBM-PC OEM字符集" title="IBM-PC OEM字符集"></p>
+<p>事实上，大部分OEM字符集是兼容ASCII字符集的，也就是说，大家对于0x00<del>0x7F这个范围的解释基本是相同的，而对于后半部分0x80</del>0xFF的解释却不一定相同。甚至有时候同样的字符在不同OEM字符集中对应的字节也是不同的。</p>
+<p>不同的OEM字符集导致人们无法跨机器交流各种文档。例如职员甲发了一封简历résumés给职员乙，结果职员乙看到的却是r?sum?s，因为é字符在职员甲机器上的OEM字符集中对应的字节是0x82，而在职员乙的机器上，由于使用的OEM字符集不同，对0x82字节解码后得到的字符却是?。</p>
+<h2 id="多字节字符集（MBCS）和中文字符集"><a href="#多字节字符集（MBCS）和中文字符集" class="headerlink" title="多字节字符集（MBCS）和中文字符集"></a>多字节字符集（MBCS）和中文字符集</h2><p>上面我们提到的字符集都是基于单字节编码，也就是说，一个字节翻译成一个字符。这对于拉丁语系国家来说可能没有什么问题，因为他们通过扩展第8个比特，就可以得到256个字符了，足够用了。但是对于亚洲国家来说，256个字符是远远不够用的。因此这些国家的人为了用上电脑，又要保持和ASCII字符集的兼容，就发明了多字节编码方式，相应的字符集就称为多字节字符集。例如中国使用的就是双字节字符集编码（DBCS，Double Byte Character Set）。</p>
+<p>对于单字节字符集来说，代码页中只需要有一张码表即可，上面记录着256个数字代表的字符。程序只需要做简单的查表操作就可以完成编解码的过程。</p>
+<blockquote>
+<p>代码页是字符集编码的具体实现，你可以把他理解为一张“字符-字节”映射表，通过查表实现“字符-字节”的翻译。下面会有更详细的描述。</p>
+</blockquote>
+<p>而对于多字节字符集，代码页中通常会有很多码表。那么程序怎么知道该使用哪张码表去解码二进制流呢？答案是，<strong>根据第一个字节来选择不同的码表进行解析</strong>。</p>
+<p>例如目前最常用的中文字符集GB2312，涵盖了所有简体字符以及一部分其他字符；GBK（K代表扩展的意思）则在GB2312的基础上加入了对繁体字符等其他非简体字符（GB18030字符集不是双字节字符集，我们在讲Unicode的时候会提到）。这两个字符集的字符都是使用1-2个字节来表示。Windows系统采用936代码页来实现对GBK字符集的编解码。在解析字节流的时候，如果遇到字节的最高位是0的话，那么就使用936代码页中的第1张码表进行解码，这就和单字节字符集的编解码方式一致了。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/image15.png" alt="image" title="image"></p>
+<p>当字节的高位是1的时候，确切的说，当第一个字节位于0x<code>81</code>–0x<code>FE之间时，根据第一个字节不同找到代码页中的相应的码表，例如当第一个字节是0x81，那么对应936中的下面这张码表：</code></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/image9.png" alt="image" title="image"></p>
+<p>（关于936代码页中完整的码表信息，参见MSDN：<a target="_blank" rel="noopener" href="http://msdn.microsoft.com/en-us/library/cc194913%28v=MSDN.10%29.aspx.%EF%BC%89">http://msdn.microsoft.com/en-us/library/cc194913%28v=MSDN.10%29.aspx.）</a></p>
+<p>按照936代码页的码表，当程序遇到连续字节流0x81 0x40的时候，就会解码为“丂”字符。</p>
+<h2 id="ANSI标准、国家标准、ISO标准"><a href="#ANSI标准、国家标准、ISO标准" class="headerlink" title="ANSI标准、国家标准、ISO标准"></a>ANSI标准、国家标准、ISO标准</h2><p>不同ASCII衍生字符集的出现，让文档交流变得非常困难，因此各种组织都陆续进行了标准化流程。例如美国ANSI组织制定了ANSI标准字符编码（注意，<strong>我们现在通常说到ANSI编码，通常指的是平台的默认编码，例如英文操作系统中是ISO-8859-1，中文系统是GBK</strong>），ISO组织制定的各种ISO标准字符编码，还有各国也会制定一些国家标准字符集，例如中国的GBK，GB2312和GB18030。</p>
+<p>操作系统在发布的时候，通常会往机器里预装这些标准的字符集还有平台专用的字符集，这样只要你的文档是使用标准字符集编写的，通用性就比较高了。例如你用GB2312字符集编写的文档，在中国大陆内的任何机器上都能正确显示。同时，我们也可以在一台机器上阅读多个国家不同语言的文档了，前提是本机必须安装该文档使用的字符集。</p>
+<h2 id="Unicode的出现"><a href="#Unicode的出现" class="headerlink" title="Unicode的出现"></a>Unicode的出现</h2><p>虽然通过使用不同字符集，我们可以在一台机器上查阅不同语言的文档，但是我们仍然无法解决一个问题：<strong>在一份文档中显示所有字符</strong>。为了解决这个问题，我们需要一个全人类达成共识的巨大的字符集，这就是Unicode字符集。</p>
+<h3 id="Unicode字符集概述"><a href="#Unicode字符集概述" class="headerlink" title="Unicode字符集概述"></a>Unicode字符集概述</h3><p>Unicode字符集涵盖了目前人类使用的所有字符，并为每个字符进行统一编号，分配唯一的字符码（Code Point）。Unicode字符集将所有字符按照使用上的频繁度划分为17个层面（Plane），每个层面上有216=65536个字符码空间。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/image29.png" alt="image" title="image"></p>
+<p>其中第0个层面BMP，基本涵盖了当今世界用到的所有字符。其他的层面要么是用来表示一些远古时期的文字，要么是留作扩展。我们平常用到的Unicode字符，一般都是位于BMP层面上的。目前Unicode字符集中尚有大量字符空间未使用。</p>
+<h3 id="编码系统的变化"><a href="#编码系统的变化" class="headerlink" title="编码系统的变化"></a>编码系统的变化</h3><p>在Unicode出现之前，所有的字符集都是和具体编码方案绑定在一起的，都是直接将字符和最终字节流绑定死了，例如ASCII编码系统规定使用7比特来编码ASCII字符集；GB2312以及GBK字符集，限定了使用最多2个字节来编码所有字符，并且规定了字节序。这样的编码系统通常用简单的查表，也就是通过代码页就可以直接将字符映射为存储设备上的字节流了。例如下面这个例子：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/image17.png" alt="image" title="image"></p>
+<p>这种方式的缺点在于，字符和字节流之间耦合得太紧密了，从而限定了字符集的扩展能力。假设以后火星人入住地球了，要往现有字符集中加入火星文就变得很难甚至不可能了，而且很容易破坏现有的编码规则。</p>
+<p>因此Unicode在设计上考虑到了这一点，将字符集和字符编码方案分离开。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/image10.png" alt="字符编码系统" title="字符编码系统"></p>
+<p>也就是说，<strong>虽然每个字符在Unicode字符集中都能找到唯一确定的编号（字符码，又称Unicode码），但是决定最终字节流的却是具体的字符编码</strong>。例如同样是对Unicode字符“A”进行编码，UTF-8字符编码得到的字节流是0x41，而UTF-16（大端模式）得到的是0x00 0x41。</p>
+<h3 id="常见的Unicode编码"><a href="#常见的Unicode编码" class="headerlink" title="常见的Unicode编码"></a>常见的Unicode编码</h3><p><strong>UCS-2&#x2F;UTF-16</strong></p>
+<p>如果要我们来实现Unicode字符集中BMP字符的编码方案，我们会怎么实现？由于BMP层面上有216=65536个字符码，因此我们只需要两个字节就可以完全表示这所有的字符了。</p>
+<p>举个例子，“中”的Unicode字符码是0x4E2D(01001110 00101101)，那么我们可以编码为01001110 00101101（大端）或者00101101 01001110 （小端）。</p>
+<p>UCS-2和UTF-16对于BMP层面的字符均是使用2个字节来表示，并且编码得到的结果完全一致。不同之处在于，<strong>UCS-2最初设计的时候只考虑到BMP字符，因此使用固定2个字节长度，也就是说，他无法表示Unicode其他层面上的字符，而UTF-16为了解除这个限制，支持Unicode全字符集的编解码，采用了变长编码，最少使用2个字节，如果要编码BMP以外的字符，则需要4个字节结对</strong>，这里就不讨论那么远，有兴趣可以参考维基百科：UTF-16&#x2F;UCS-2。</p>
+<p>Windows从NT时代开始就采用了UTF-16编码，很多流行的编程平台，例如.Net，Java，Qt还有Mac下的Cocoa等都是使用UTF-16作为基础的字符编码。例如代码中的字符串，在内存中相应的字节流就是用UTF-16编码过的。</p>
+<p><strong>UTF-8</strong></p>
+<p>UTF-8应该是目前应用最广泛的一种Unicode编码方案。由于UCS-2&#x2F;UTF-16对于ASCII字符使用两个字节进行编码，存储和处理效率相对低下，并且由于ASCII字符经过UTF-16编码后得到的两个字节，高字节始终是0x00，很多C语言的函数都将此字节视为字符串末尾从而导致无法正确解析文本。因此一开始推出的时候遭到很多西方国家的抵触，大大影响了Unicode的推行。后来聪明的人们发明了UTF-8编码，解决了这个问题。</p>
+<p>UTF-8编码方案采用1-4个字节来编码字符，方法其实也非常简单。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/image11.png" alt="image" title="image"></p>
+<p>（上图中的x代表Unicode码的低8位，y代表高8位）</p>
+<p><strong>对于ASCII字符的编码使用单字节，和ASCII编码一摸一样，这样所有原先使用ASCII编解码的文档就可以直接转到UTF-8编码了。对于其他字符，则使用2-4个字节来表示，其中，首字节前置1的数目代表正确解析所需要的字节数，剩余字节的高2位始终是10。例如首字节是1110yyyy，前置有3个1，说明正确解析总共需要3个字节，需要和后面2个以10开头的字节结合才能正确解析得到字符</strong>。</p>
+<p>关于UTF-8的更多信息，参考维基百科：UTF-8。</p>
+<p><strong>GB18030</strong></p>
+<p>任何能够将Unicode字符映射为字节流的编码都属于Unicode编码。中国的GB18030编码，覆盖了Unicode所有的字符，因此也算是一种Unicode编码。只不过他的编码方式并不像UTF-8或者UTF-16一样，将Unicode字符的编号通过一定的规则进行转换，而只能通过查表的手段进行编码。</p>
+<p>关于GB18030的更多信息，参考：GB18030。</p>
+<h3 id="Unicode相关的常见问题"><a href="#Unicode相关的常见问题" class="headerlink" title="Unicode相关的常见问题"></a>Unicode相关的常见问题</h3><p><strong>Unicode是两个字节吗？</strong></p>
+<p>Unicode只是定义了一个庞大的、全球通用的字符集，并为每个字符规定了唯一确定的编号，具体存储为什么样的字节流，取决于字符编码方案。推荐的Unicode编码是UTF-16和UTF-8。</p>
+<p><strong>带签名的UTF-8指的是什么意思？</strong></p>
+<p>带签名指的是字节流以BOM标记开始。很多软件会“智能”的探测当前字节流使用的字符编码，这种探测过程出于效率考虑，通常会提取字节流前面若干个字节，看看是否符合某些常见字符编码的编码规则。由于UTF-8和ASCII编码对于纯英文的编码是一样的，无法区分开来，因此通过在字节流最前面添加BOM标记可以告诉软件，当前使用的是Unicode编码，判别成功率就十分准确了。但是需要注意，不是所有软件或者程序都能正确处理BOM标记，例如PHP就不会检测BOM标记，直接把它当普通字节流解析了。因此如果你的PHP文件是采用带BOM标记的UTF-8进行编码的，那么有可能会出现问题。</p>
+<p><strong>Unicode编码和以前的字符集编码有什么区别？</strong></p>
+<p>早期字符编码、字符集和代码页等概念都是表达同一个意思。例如GB2312字符集、GB2312编码，936代码页，实际上说的是同个东西。但是对于Unicode则不同，Unicode字符集只是定义了字符的集合和唯一编号，Unicode编码，则是对UTF-8、UCS-2&#x2F;UTF-16等具体编码方案的统称而已，并不是具体的编码方案。所以当需要用到字符编码的时候，你可以写gb2312，codepage936，utf-8，utf-16，但请不要写unicode（看过别人在网页的meta标签里头写charset&#x3D;unicode，有感而发）。</p>
+<h2 id="乱码问题"><a href="#乱码问题" class="headerlink" title="乱码问题"></a>乱码问题</h2><p>乱码指的是程序显示出来的字符文本无法用任何语言去解读。一般情况下会包含大量<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/symbol.jpg" alt="解码失败替换字符" title="symbol">或者?。乱码问题是所有计算机用户或多或少会遇到的问题。<strong>造成乱码的原因就是因为使用了错误的字符编码去解码字节流</strong>，<strong>因此当我们在思考任何跟文本显示有关的问题时，请时刻保持清醒：当前使用的字符编码是什么</strong>。只有这样，我们才能正确分析和处理乱码问题。</p>
+<p>例如最常见的网页乱码问题。如果你是网站技术人员，遇到这样的问题，需要检查以下原因：</p>
+<ul>
+<li>服务器返回的响应头Content-Type没有指明字符编码</li>
+<li>网页内是否使用META HTTP-EQUIV标签指定了字符编码</li>
+<li>网页文件本身存储时使用的字符编码和网页声明的字符编码是否一致</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/image12.png" alt="image" title="image"> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/image51.png" alt="image" title="image"></p>
+<p>不久前看到某技术论坛有人反馈，WinForm程序使用Clipboard类的GetData方法去访问剪切板中的HTML内容时会出现乱码的问题，我估计也是由于WinForm在获取HTML文本的时候没有用对正确的字符编码导致的。Windows剪贴板只支持UTF-8编码，也就是说你传入的文本都会被UTF-8编解码。这样一来，只要两个程序都是调用Windows剪切板API编程的话，那么复制粘贴的过程中不会出现乱码。除非一方在获取到剪贴板数据之后使用了错误的字符编码进行解码，才会得到乱码（我做了简单的WinForm剪切板编程实验，发现GetData使用的是系统默认编码，而不是UTF-8编码）。</p>
+<p>关于乱码中出现?或者?，这里需要额外提一下，<strong>当程序使用特定字符编码解析字节流的时候，一旦遇到无法解析的字节流时，就会用<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/symbol.jpg" alt="解码失败替换字符" title="symbol">或者?来替代。因此，一旦你最终解析得到的文本包含这样的字符，而你又无法得到原始字节流的时候，说明正确的信息已经彻底丢失了，尝试任何字符编码都无法从这样的字符文本中还原出正确的信息来</strong>。</p>
+<h2 id="必要的术语解释"><a href="#必要的术语解释" class="headerlink" title="必要的术语解释"></a>必要的术语解释</h2><p><strong>字符集（Character Set）</strong>，字面上的理解就是字符的集合，例如ASCII字符集，定义了128个字符；GB2312定义了7445个字符。而<strong>计算机系统中提到的字符集准确来说，指的是已编号的字符的有序集合（不一定是连续）</strong>。</p>
+<p><strong>字符码（Code Point）</strong>指的就是字符集中每个字符的数字编号。例如ASCII字符集用0-127这连续的128个数字分别表示128个字符；GBK字符集使用区位码的方式为每个字符编号，首先定义一个94X94的矩阵，行称为“区”，列称为“位”，然后将所有国标汉字放入矩阵当中，这样每个汉字就可以用唯一的“区位”码来标识了。例如“中”字被放到54区第48位，因此字符码就是5448。而Unicode中将字符集按照一定的类别划分到0~16这17个层面（Planes）中，每个层面中拥有216=65536个字符码，因此Unicode总共拥有的字符码，也即是Unicode的字符空间总共有17*65536&#x3D;1114112。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/ascii_imgs/image24.png" alt="image" title="image"></p>
+<p><strong>编码</strong>的过程是将字符转换成字节流。</p>
+<p><strong>解码</strong>的过程是将字节流解析为字符。</p>
+<p><strong>字符编码（Character Encoding）</strong>是将字符集中的字符码映射为字节流的一种具体实现方案。例如ASCII字符编码规定使用单字节中低位的7个比特去编码所有的字符。例如‘A’的编号是65，用单字节表示就是0x41，因此写入存储设备的时候就是b’01000001’。GBK编码则是将区位码（GBK的字符码）中的区码和位码的分别加上0xA0（160）的偏移（之所以要加上这样的偏移，主要是为了和ASCII码兼容），例如刚刚提到的“中”字，区位码是5448，十六进制是0x3630，区码和位码分别加上0xA0的偏移之后就得到0xD6D0，这就是“中”字的GBK编码结果。</p>
+<p><strong>代码页（Code Page）</strong>一种字符编码具体形式。早期字符相对少，因此通常会使用类似表格的形式将字符直接映射为字节流，然后通过查表的方式来实现字符的编解码。现代操作系统沿用了这种方式。例如Windows使用936代码页、Mac系统使用EUC-CN代码页实现GBK字符集的编码，名字虽然不一样，但对于同一汉字的编码肯定是一样的。</p>
+<p><strong>大小端</strong>的说法源自《格列佛游记》。我们知道，鸡蛋通常一端大一端小，小人国的人们对于剥蛋壳时应从哪一端开始剥起有着不一样的看法。同样，计算机界对于传输多字节字（由多个字节来共同表示一个数据类型）时，是先传高位字节（大端）还是先传低位字节（小端）也有着不一样的看法，这就是计算机里头大小端模式的由来了。无论是写文件还是网络传输，实际上都是往流设备进行写操作的过程，而且这个写操作是从流的低地址向高地址开始写（这很符合人的习惯），对于多字节字来说，如果先写入高位字节，则称作大端模式。反之则称作小端模式。也就是说，大端模式下，字节序和流设备的地址顺序是相反的，而小端模式则是相同的。一般网络协议都采用大端模式进行传输，windows操作系统采用Utf-16小端模式。</p>
+<p>——<em><strong>Kevin Yang</strong></em></p>
+<p>参考链接：</p>
+<ul>
+<li>The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</li>
+<li><a target="_blank" rel="noopener" href="http://developers.sun.com/dev/gadc/technicalpublications/articles/gb18030.html">http://developers.sun.com/dev/gadc/technicalpublications/articles/gb18030.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Universal/_Character/_Set">http://en.wikipedia.org/wiki/Universal\_Character\_Set</a></li>
+<li><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Code/_page">http://en.wikipedia.org/wiki/Code\_page</a></li>
+</ul>
+<h1 id="Unicode-和-UTF-8-有什么区别？"><a href="#Unicode-和-UTF-8-有什么区别？" class="headerlink" title="Unicode 和 UTF-8 有什么区别？"></a><a href="#Unicode-%E5%92%8C-UTF-8-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F" title="Unicode 和 UTF-8 有什么区别？"></a>Unicode 和 UTF-8 有什么区别？</h1><blockquote>
+<p>转发自知乎 盛世唐朝 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23374078">https://www.zhihu.com/question/23374078</a></p>
+</blockquote>
+<p>很久很久以前，有一群人，他们决定用8个可以开合的晶体管来组合成不同的状态，以表示世界上的万物。他们看到8个开关状态是好的，于是他们把这称为”<strong>字节</strong>“。再后来，他们又做了一些可以处理这些字节的机器，机器开动了，可以用字节来组合出很多状态，状态开始变来变去。他们看到这样是好的，于是它们就这机器称为”<strong>计算机</strong>“。</p>
+<p>开始计算机只在美国用。八位的字节一共可以组合出256(2的8次方)种不同的状态。<br>他们把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作：<br>遇上0×10, 终端就换行；<br>遇上0×07, 终端就向人们嘟嘟叫；<br>遇上0x1b, 打印机就打印反白的字，或者终端就用彩色显示字母。<br>他们看到这样很好，于是就把这些0×20以下的字节状态称为”控制码”。他们又把所有的空<br>格、标点符号、数字、大小写字母分别用连续的字节状态表示，一直编到了第127号，这样计算机就可以用不同字节来存储英语的文字了。大家看到这样，都感觉很好，于是大家都把这个方案叫做 <strong>ANSI</strong> 的”Ascii”编码（American Standard Code for Information Interchange，美国信息互换标准代码）。当时世界上所有的计算机都用同样的<strong>ASCII</strong>方案来保存英文文字。</p>
+<p>后来，就像建造巴比伦塔一样，世界各地都开始使用计算机，但是很多国家用的不是英文，他们的字母里有许多是ASCII里没有的，为了可以在计算机保存他们的文字，他们决定採用 127号之后的空位来表示这些新的字母、符号，还加入了很多画表格时需要用下到的横线、竖线、交叉等形状，一直把序号编到了最后一个状态255。从128 到255这一页的字符集被称”<strong>扩展字符集</strong>“。从此之后，贪婪的人类再没有新的状态可以用了，美帝国主义可能没有想到还有第三世界国家的人们也希望可以用到计算机吧！</p>
+<p>等中国人们得到计算机时，已经没有可以利用的字节状态来表示汉字，况且有6000多个常用汉字需要保存呢。但是这难不倒智慧的中国人民，我们不客气地把那些127号之后的奇异符号们直接取消掉, 规定：一个小于127的字符的意义与原来相同，但两个大于127的字符连在一起时，就表示一个汉字，前面的一个字节（他称之为高字节）从0xA1用到0xF7，后面一个字节（低字节）从0xA1到0xFE，这样我们就可以组合出大约7000多个简体汉字了。在这些编码里，我们还把数学符号、罗马希腊的字母、日文的假名们都编进去了，连在 ASCII 里本来就有的数字、标点、字母都统统重新编了两个字节长的编码，这就是常説的”全角”字符，而原来在127号以下的那些就叫”半角”字符了。中国人民看到这样很不错，于是就把这种汉字方案叫做 “<strong>GB2312</strong>“。GB2312 是对 ASCII 的中文扩展。</p>
+<p>但是中国的汉字太多了，我们很快就就发现有许多人的人名没有办法在这里打出来，特别是某些很会麻烦别人的国家领导人。于是我们不得不继续把GB2312 没有用到的码位找出来老实不客气地用上。后来还是不够用，于是乾脆不再要求低字节一定是127号之后的内码，只要第一个字节是大于127就固定表示这是一个汉字的开始，不管后面跟的是不是扩展字符集里的内容。结果扩展之后的编码方案被称为<strong>GBK</strong> 标准，GBK包括了GB2312 的所有内容，同时又增加了近20000个新的汉字（包括繁体字）和符号。 后来少数民族也要用电脑了，于是我们再扩展，又加了几千个新的少数民族的字，GBK扩成了 <strong>GB18030</strong>。从此之后，中华民族的文化就可以在计算机时代中传承了。 中国的程序员们看到这一系列汉字编码的标准是好的，于是通称他们叫做 “<strong>DBCS</strong>“（Double Byte Charecter Set 双字节字符集）。在DBCS系列标准里，最大的特点是两字节长的汉字字符和一字节长的英文字符并存于同一套编码方案里，因此他们写的程序为了支持中文处理，必须要注意字串里的每一个字节的值，如果这个值是大于127的，那么就认为一个双字节字符集里的字符出现了。那时候凡是受过加持，会编程的计算机僧侣们都要每天念下面这个咒语数百遍： “一个汉字算两个英文字符！一个汉字算两个英文字符……”</p>
+<p>因为当时各个国家都像中国这样搞出一套自己的编码标准，结果互相之间谁也不懂谁的编码，谁也不支持别人的编码，连大陆和台湾这样只相隔了150海里，使用着同一种语言的兄弟地区，也分别採用了不同的 DBCS 编码方案——当时的中国人想让电脑显示汉字，就必须装上一个”汉字系统”，专门用来处理汉字的显示、输入的问题，像是那个台湾的愚昧封建人士写的算命程序就必须加装另一套支持 BIG5 编码的什么”倚天汉字系统”才可以用，装错了字符系统，显示就会乱了套！这怎么办？而且世界民族之林中还有那些一时用不上电脑的穷苦人民，他们的文字又怎么办？ 真是计算机的巴比伦塔命题啊！</p>
+<p>正在这时，大天使加百列及时出现了——一个叫 ISO（国际标谁化组织）的国际组织决定着手解决这个问题。他们採用的方法很简单：废了所有的地区性编码方案，重新搞一个包括了地球上所有文化、所有字母和符号 的编码！他们打算叫它”Universal Multiple-Octet Coded Character Set”，简称 <strong>UCS</strong>, 俗称 “<strong>unicode</strong>“。</p>
+<p>unicode开始制订时，计算机的存储器容量极大地发展了，空间再也不成为问题了。于是 ISO 就直接规定必须用两个字节，也就是16位来统一表示所有的字符，对于ASCII里的那些”半角”字符，unicode包持其原编码不变，只是将其长度由原来的8位扩展为16位，而其他文化和语言的字符则全部重新统一编码。由于”半角”英文符号只需要用到低8位，所以其高8位永远是0，因此这种大气的方案在保存英文文本时会多浪费一倍的空间。</p>
+<p>这时候，从旧社会里走过来的程序员开始发现一个奇怪的现象：他们的 strlen 函数靠不住了，一个汉字不再是相当于两个字符了，而是一个！是的，从unicode开始，无论是半角的英文字母，还是全角的汉字，它们都是统一的”<strong>一个字符</strong>“！同时，也都是统一的”<strong>两个字节</strong>“，请注意”<strong>字符</strong>“和”<strong>字节</strong>“两个术语的不同，”<strong>字节</strong>“是一个8位的物理存贮单元，而”<strong>字符</strong>“则是一个文化相关的符号。在unicode中，一个字符就是两个字节。一个汉字算两个英文字符的时代已经快过去了。</p>
+<p>unicode同样也不完美，这里就有两个的问题，一个是，如何才能区别unicode和ascii？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储空间来説是极大的浪费，文本文件的大小会因此大出二三倍，这是难以接受的。</p>
+<p>unicode在很长一段时间内无法推广，直到互联网的出现，为解决unicode如何在网络上传输的问题，于是面向传输的众多 <strong>UTF</strong>（UCS Transfer Format）标准出现了，顾名思义，<strong>UTF-8</strong>就是每次8个位传输数据，而<strong>UTF-16</strong>就是每次16个位。UTF-8就是在互联网上使用最广的一种unicode的实现方式，这是为传输而设计的编码，并使编码无国界，这样就可以显示全世界上所有文化的字符了。UTF-8最大的一个特点，就是它是一种变长的编码方式。它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度，当字符在ASCII码的范围时，就用一个字节表示，保留了ASCII字符一个字节的编码做为它的一部分，注意的是unicode一箇中文字符佔2个字节，而UTF-8一箇中文字符佔3个字节）。从unicode到utf-8并不是直接的对应，而是要过一些算法和规则来转换。</p>
+<table>
+<thead>
+<tr>
+<th>Unicode符号范围(十六进制)</th>
+<th>UTF-8编码方式（二进制）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0000 0000-0000 007F</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>0000 0080-0000 07FF</td>
+<td>110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>0000 0800-0000 FFFF</td>
+<td>1110xxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>0001 0000-0010 FFFF</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody></table>
+<p>最后简单总结一下：</p>
+<ul>
+<li>中国人民通过对 ASCII 编码的中文扩充改造，产生了 GB2312 编码，可以表示6000多个常用汉字。</li>
+<li>汉字实在是太多了，包括繁体和各种字符，于是产生了 GBK 编码，它包括了 GB2312 中的编码，同时扩充了很多。</li>
+<li>中国是个多民族国家，各个民族几乎都有自己独立的语言系统，为了表示那些字符，继续把 GBK 编码扩充为 GB18030 编码。</li>
+<li>每个国家都像中国一样，把自己的语言编码，于是出现了各种各样的编码，如果你不安装相应的编码，就无法解释相应编码想表达的内容。</li>
+<li>终于，有个叫 ISO 的组织看不下去了。他们一起创造了一种编码 UNICODE ，这种编码非常大，大到可以容纳世界上任何一个文字和标志。所以只要电脑上有 UNICODE 这种编码系统，无论是全球哪种文字，只需要保存文件的时候，保存成 UNICODE 编码就可以被其他电脑正常解释。</li>
+<li>UNICODE 在网络传输中，出现了两个标准 UTF-8 和 UTF-16，分别每次传输 8个位和 16个位。于是就会有人产生疑问，UTF-8 既然能保存那么多文字、符号，为什么国内还有这么多使用 GBK 等编码的人？因为 UTF-8 等编码体积比较大，佔电脑空间比较多，如果面向的使用人群绝大部分都是中国人，用 GBK 等编码也可以。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://wayneoi.github.io">Wayneoi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wayneoi.github.io/2023/10/09/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%EF%BC%88ASCII-Unicode-Utf-8-GB2312%E2%80%A6%EF%BC%89/">https://wayneoi.github.io/2023/10/09/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%EF%BC%88ASCII-Unicode-Utf-8-GB2312%E2%80%A6%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wayneoi.github.io" target="_blank">Wayne の小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ASCII/">ASCII</a><a class="post-meta__tags" href="/tags/Unicode/">Unicode</a><a class="post-meta__tags" href="/tags/UTF-8/">UTF-8</a><a class="post-meta__tags" href="/tags/GB2312/">GB2312</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/10/09/LeetCode%E5%88%B7%E9%A2%98%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/" title="LeetCode刷题预备知识"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">LeetCode刷题预备知识</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/09/1-5-%E4%B8%87%E5%AD%97-CSS-%E5%9F%BA%E7%A1%80%E6%8B%BE%E9%81%97%EF%BC%88%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E3%80%81%E5%B8%B8%E8%A7%81%E9%9C%80%E6%B1%82%EF%BC%89/" title="1.5 万字 CSS 基础拾遗（核心知识、常见需求）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">1.5 万字 CSS 基础拾遗（核心知识、常见需求）</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wayneoi</div><div class="author-info__description">分享数学 信息学 互联网 围棋知识</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wayneoi"><i class="fab fa-github fa-envelope fa-qq fa-feed"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/wayneoi" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:3710905@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%98%E6%98%AF%E5%BE%97%E4%BB%8EASCII%E7%A0%81%E8%AF%B4%E8%B5%B7"><span class="toc-number">1.</span> <span class="toc-text">还是得从ASCII码说起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OEM%E5%AD%97%E7%AC%A6%E9%9B%86%E7%9A%84%E8%A1%8D%E7%94%9F"><span class="toc-number">2.</span> <span class="toc-text">OEM字符集的衍生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%AD%97%E8%8A%82%E5%AD%97%E7%AC%A6%E9%9B%86%EF%BC%88MBCS%EF%BC%89%E5%92%8C%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="toc-number">3.</span> <span class="toc-text">多字节字符集（MBCS）和中文字符集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ANSI%E6%A0%87%E5%87%86%E3%80%81%E5%9B%BD%E5%AE%B6%E6%A0%87%E5%87%86%E3%80%81ISO%E6%A0%87%E5%87%86"><span class="toc-number">4.</span> <span class="toc-text">ANSI标准、国家标准、ISO标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unicode%E7%9A%84%E5%87%BA%E7%8E%B0"><span class="toc-number">5.</span> <span class="toc-text">Unicode的出现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unicode%E5%AD%97%E7%AC%A6%E9%9B%86%E6%A6%82%E8%BF%B0"><span class="toc-number">5.1.</span> <span class="toc-text">Unicode字符集概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">5.2.</span> <span class="toc-text">编码系统的变化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84Unicode%E7%BC%96%E7%A0%81"><span class="toc-number">5.3.</span> <span class="toc-text">常见的Unicode编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unicode%E7%9B%B8%E5%85%B3%E7%9A%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">5.4.</span> <span class="toc-text">Unicode相关的常见问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98"><span class="toc-number">6.</span> <span class="toc-text">乱码问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E8%A6%81%E7%9A%84%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A"><span class="toc-number">7.</span> <span class="toc-text">必要的术语解释</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Unicode-%E5%92%8C-UTF-8-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number"></span> <span class="toc-text">Unicode 和 UTF-8 有什么区别？</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/10/09/CSP-J-S%E5%A4%8D%E8%B5%9B-%E7%AC%AC%E4%BA%8C%E8%BD%AE%E8%AE%A4%E8%AF%81%E6%A0%87%E5%87%86%E7%8E%AF%E5%A2%83-%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B-NOI-Linux2-0%E7%89%88-%E4%B8%8E-Arbiter%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" title="CSP-J/S复赛 第二轮认证标准环境(保姆级教程)NOI_Linux2.0版 与 Arbiter评测系统配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSP-J/S复赛 第二轮认证标准环境(保姆级教程)NOI_Linux2.0版 与 Arbiter评测系统配置"/></a><div class="content"><a class="title" href="/2023/10/09/CSP-J-S%E5%A4%8D%E8%B5%9B-%E7%AC%AC%E4%BA%8C%E8%BD%AE%E8%AE%A4%E8%AF%81%E6%A0%87%E5%87%86%E7%8E%AF%E5%A2%83-%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B-NOI-Linux2-0%E7%89%88-%E4%B8%8E-Arbiter%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" title="CSP-J/S复赛 第二轮认证标准环境(保姆级教程)NOI_Linux2.0版 与 Arbiter评测系统配置">CSP-J/S复赛 第二轮认证标准环境(保姆级教程)NOI_Linux2.0版 与 Arbiter评测系统配置</a><time datetime="2023-10-09T10:51:44.000Z" title="发表于 2023-10-09 18:51:44">2023-10-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/09/LeetCode%E5%88%B7%E9%A2%98%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/" title="LeetCode刷题预备知识"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LeetCode刷题预备知识"/></a><div class="content"><a class="title" href="/2023/10/09/LeetCode%E5%88%B7%E9%A2%98%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/" title="LeetCode刷题预备知识">LeetCode刷题预备知识</a><time datetime="2023-10-09T09:56:50.000Z" title="发表于 2023-10-09 17:56:50">2023-10-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/09/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%EF%BC%88ASCII-Unicode-Utf-8-GB2312%E2%80%A6%EF%BC%89/" title="关于字符编码，你所需要知道的（ASCII,Unicode,Utf-8,GB2312…）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于字符编码，你所需要知道的（ASCII,Unicode,Utf-8,GB2312…）"/></a><div class="content"><a class="title" href="/2023/10/09/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%EF%BC%8C%E4%BD%A0%E6%89%80%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%EF%BC%88ASCII-Unicode-Utf-8-GB2312%E2%80%A6%EF%BC%89/" title="关于字符编码，你所需要知道的（ASCII,Unicode,Utf-8,GB2312…）">关于字符编码，你所需要知道的（ASCII,Unicode,Utf-8,GB2312…）</a><time datetime="2023-10-09T09:08:06.000Z" title="发表于 2023-10-09 17:08:06">2023-10-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/09/1-5-%E4%B8%87%E5%AD%97-CSS-%E5%9F%BA%E7%A1%80%E6%8B%BE%E9%81%97%EF%BC%88%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E3%80%81%E5%B8%B8%E8%A7%81%E9%9C%80%E6%B1%82%EF%BC%89/" title="1.5 万字 CSS 基础拾遗（核心知识、常见需求）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="1.5 万字 CSS 基础拾遗（核心知识、常见需求）"/></a><div class="content"><a class="title" href="/2023/10/09/1-5-%E4%B8%87%E5%AD%97-CSS-%E5%9F%BA%E7%A1%80%E6%8B%BE%E9%81%97%EF%BC%88%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E3%80%81%E5%B8%B8%E8%A7%81%E9%9C%80%E6%B1%82%EF%BC%89/" title="1.5 万字 CSS 基础拾遗（核心知识、常见需求）">1.5 万字 CSS 基础拾遗（核心知识、常见需求）</a><time datetime="2023-10-09T05:14:45.000Z" title="发表于 2023-10-09 13:14:45">2023-10-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/08/NOIP-CSP-J-%E7%AC%AC%E4%BA%8C%E8%BD%AE%E5%A4%8D%E8%B5%9B2003-2022%E5%8E%86%E5%B9%B4%E9%A2%98%E8%A7%A3%E6%BA%90%E7%A0%81/" title="NOIP CSP-J 第二轮复赛2003-2022历年题解源码"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NOIP CSP-J 第二轮复赛2003-2022历年题解源码"/></a><div class="content"><a class="title" href="/2023/10/08/NOIP-CSP-J-%E7%AC%AC%E4%BA%8C%E8%BD%AE%E5%A4%8D%E8%B5%9B2003-2022%E5%8E%86%E5%B9%B4%E9%A2%98%E8%A7%A3%E6%BA%90%E7%A0%81/" title="NOIP CSP-J 第二轮复赛2003-2022历年题解源码">NOIP CSP-J 第二轮复赛2003-2022历年题解源码</a><time datetime="2023-10-08T14:22:09.000Z" title="发表于 2023-10-08 22:22:09">2023-10-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By Wayneoi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi,Welcom to my Blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  function abcjsInit() {
+    function abcjsFn() {
+      for (let abcContainer of document.getElementsByClassName("abc-music-sheet")) {
+        ABCJS.renderAbc(abcContainer, abcContainer.innerHTML, {responsive: 'resize'})
+      }
+    }
+    
+    typeof ABCJS === 'object' ? abcjsFn()
+      : getScript('https://cdn.jsdelivr.net/npm/abcjs/dist/abcjs-basic-min.min.js').then(abcjsFn)
+  }
+
+  window.pjax ? abcjsInit() : document.addEventListener('DOMContentLoaded', abcjsInit)
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script>(() => {
+  window.$crisp = [];
+  window.CRISP_WEBSITE_ID = "825d8401-a727-4ee4-8154-b90d835e411a";
+  (function () {
+    d = document;
+    s = d.createElement("script");
+    s.src = "https://client.crisp.chat/l.js";
+    s.async = 1;
+    d.getElementsByTagName("head")[0].appendChild(s);
+  })();
+  $crisp.push(["safe", true])
+
+  const isChatBtn = false
+  const isChatHideShow = false
+
+  if (isChatBtn) {
+    const open = () => {
+      $crisp.push(["do", "chat:show"])
+      $crisp.push(["do", "chat:open"])
+    }
+
+    const close = () => {
+      $crisp.push(["do", "chat:hide"])
+    }
+
+    close()
+    $crisp.push(["on", "chat:closed", function() {
+      close()
+    }])
+
+    window.chatBtnFn = () => {
+      $crisp.is("chat:visible") ? close() : open()
+    }
+  } else if (isChatHideShow) {
+    window.chatBtn = {
+      hide: () => {
+        $crisp.push(["do", "chat:hide"])
+      },
+      show: () => {
+        $crisp.push(["do", "chat:show"])
+      }
+    }
+  }
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
